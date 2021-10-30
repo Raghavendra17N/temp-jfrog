@@ -30,7 +30,7 @@ jobs:
       uses: hashicorp/vault-action@v2.3.1
       with:
         url: http://34.75.60.59:8200/ui
-        token: ${{ secrets.VaultToken }}
+        token: ${{ secrets.vault_token }}
         secrets: |
              kv/secret_test1 docker_username | DOCKER_USERNAME ;
              kv/secret_test1 docker_password | DOCKER_PASSWORD

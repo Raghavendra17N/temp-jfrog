@@ -38,8 +38,8 @@ jobs:
     - name: login docker
       uses: docker/login-action@v1
       with:
-              username: ${{ steps.secrets.outputs.DOCKER_USERNAME }}
-              password: ${{ steps.secrets.outputs.DOCKER_PASSWORD }}
+              username: ${{ steps.secrets.outputs.docker_username }}
+              password: ${{ steps.secrets.outputs.docker_password }}
     - name:  Build the image
       run: sudo docker build . --file Dockerfile --tag raghava99/actions-test1:v2
     - name: Push the latest Docker image

@@ -35,11 +35,10 @@ jobs:
               secrets: |
                       secret/data/ci docker_username ;
                       secret/data/ci docker_password
-    - name: Build and Push to docker hub
-      uses: mr-smithers-excellent/docker-build-push@v4
-      with:
-        image: raghava99/actions-test1
-        tags: v1, latest
-        registry: docker.io
-        username: ${{ steps.secrets.outputs.DOCKER_USERNAME }}
-        password: ${{ steps.secrets.outputs.DOCKER_PASSWORD }}
+    - name: Log-in to docker registry
+      run: echo ${{ steps.secrets.outputs.DOCKERHUB_PASSWORD }} | docker login -u ${{ steps.secrets.outputs.DOCKERHUB_USERNAME }} --password-stdin
+    - name:  Build the image
+      run: sudo docker build . --file Dockerfile --tag raghava99/actions-test1:v2
+    - name: Push the latest Docker image
+      run: sudo docker push raghava99/actions-test1:v2
+                

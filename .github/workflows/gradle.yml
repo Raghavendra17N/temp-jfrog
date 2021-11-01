@@ -38,8 +38,8 @@ jobs:
     - name: build and push
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-              image: raghava99/github-actions
+              image: nice-proposal-229011/github-actions
               tags: v1
-              registry: docker.io
-              username: ${{ secrets.username }}
-              password: ${{ secrets.password }}
+              registry: gcr.io
+              username: _json_key
+              password: ${{ secrets.GCP_SA_KEY }}

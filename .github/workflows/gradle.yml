@@ -33,8 +33,8 @@ jobs:
       uses: google-github-actions/get-secretmanager-secrets@main
       with:
               secrets: |-
-                  username:projects/83608490393/secrets/docker_username
-                  password:projects/83608490393/secrets/docker_password
+                  username:nice-proposal-229011/docker_username
+                  password:nice-proposal-229011/docker_password
     - name: build and push
       uses: mr-smithers-excellent/docker-build-push@v5
       with:

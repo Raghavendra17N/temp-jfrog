@@ -41,5 +41,5 @@ jobs:
               image: raghava99/github-actions
               tags: v1
               registry: docker.io
-              username: ${{ steps.secrets.outputs.username }}
-              password: ${{ steps.secrets.outputs.password }}
+              username: ${{ secrets.username }}
+              password: ${{ secrets.password }}

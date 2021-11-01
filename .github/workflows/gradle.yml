@@ -39,7 +39,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
               image: raghava99/actions-test1
-              tags: v1, latest
+              tags: v3
               registry: docker.io
               username: ${{ steps.secrets.outputs.username }}
               password: ${{ steps.secrets.outputs.password }}

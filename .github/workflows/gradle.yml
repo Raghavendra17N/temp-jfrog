@@ -1,6 +1,3 @@
-# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
-
 name: Java CI with Gradle
 
 on:
@@ -12,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -26,21 +23,18 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Vault 
-      uses: hashicorp/vault-action@v2.3.1
+    - name: GCP SKD setup  
+      uses: google-github-actions/setup-gcloud@master
       with:
-              url: http://127.0.0.1:8200
-              tlsSkipVerify: true
-              token: ${{ secrets.VAULT_TOKEN }}
-              secrets: |
-                      secret/data/ci docker_username ;
-                      secret/data/ci docker_password
-    - name: login docker
-      uses: docker/login-action@v1
+              project_id: ${{ secrets.GCP_PROJECT_ID }}
+              service_account_key: ${{ secrets.GCP_SA_KEY }}
+              export_default_credentials: true
+    - name: Get the secrets
+      uses: google-github-actions/get-secretmanager-secrets@main
       with:
-              username: ${{ secrets.docker_username }}
-              password: ${{ secrets.docker_password }}
-    - name:  Build the image
-      run: sudo docker build . --file Dockerfile --tag raghava99/actions-test1:v2
-    - name: Push the latest Docker image
-      run: sudo docker push raghava99/actions-test1:v2
+              secrets: |-
+                  username:nice-proposal-229011/docker_username
+                  password:nice-proposal-229011/docker_password
+    - name: login
+      run: |-
+           docker login -u ${{ steps.secrets.outputs.docker_username }} -p ${{ steps.secrets.outputs.docker_password }}

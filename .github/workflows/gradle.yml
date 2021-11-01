@@ -35,11 +35,8 @@ jobs:
               secrets: |-
                   username:nice-proposal-229011/docker_username
                   password:nice-proposal-229011/docker_password
-    - name: build and push
-      uses: mr-smithers-excellent/docker-build-push@v5
+    - name: login 
+      uses: docker/login-action@v1
       with:
-              image: nice-proposal-229011/github-actions
-              tags: v1
-              registry: gcr.io
-              username: _json_key
-              password: ${{ secrets.GCP_SA_KEY }}
+              username: ${{ steps.secrets.outputs.username }}
+              password: ${{ steps.secrets.outputs.password }}

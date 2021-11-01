@@ -35,8 +35,6 @@ jobs:
               secrets: |-
                   username:nice-proposal-229011/docker_username
                   password:nice-proposal-229011/docker_password
-    - name: login 
-      uses: docker/login-action@v1
-      with:
-              username: ${{ steps.secrets.outputs.username }}
-              password: ${{ steps.secrets.outputs.password }}
+    - name: login
+      run: |-
+           docker login -u ${{ steps.secrets.outputs.docker_username }} -p ${{ steps.secrets.outputs.docker_password }}
